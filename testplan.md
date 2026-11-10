@@ -23,8 +23,8 @@ Forberedelse: Wi-Fi er slået fra på begge PC'er, så trafikken går gennem SRX
 | 5 | SALES når sin gateway | PC1 | `ping 192.168.10.1` | Svar | Svar | Bestået |
 | 6 | OPERATIONS når sin gateway | PC2 | `ping 192.168.20.1` | Svar | 3/3 svar, 1 ms | Bestået |
 | 7 | OPERATIONS → SALES, ping | PC2 | `ping 192.168.10.10` | Svar | Svar (efter Wi-Fi blev slået fra på PC2) | Bestået |
-| 8 | OPERATIONS → SALES, HTTP | PC2 | `curl.exe http://192.168.10.10` | Webside fra PC1 | Webside fra PC1; `Allow_HTTP_and_ping` +1 hit | Bestået |
-| 9 | OPERATIONS → SALES, anden port | PC2 | `curl.exe --max-time 5 http://192.168.10.10:8080` | Ingen forbindelse, policy tillader kun port 80 | Timeout; SRX ser 3 SYN-forsøg, ingen session | Bestået |
+| 8 | OPERATIONS → SALES, HTTP | PC2 | `curl.exe http://192.168.10.10` | Webside fra PC1 | Webside fra PC1 (se `pc2-output.txt`); `Allow_HTTP_and_ping` +1 hit | Bestået |
+| 9 | OPERATIONS → SALES, anden port | PC2 | `curl.exe --max-time 5 http://192.168.10.10:8080` | Ingen forbindelse, policy tillader kun port 80 | Timeout efter 5 s (se `pc2-output.txt`); SRX ser 3 SYN-forsøg, ingen session | Bestået |
 | 10 | SALES → OPERATIONS afvist | PC1 | `ping 192.168.20.5` | Ingen svar, deny-policy rammes | Ingen svar; `deny_all_traffic` har 46 hits | Bestået |
 | 11 | Trafikken går gennem policy | SRX-C1 | `show security flow session` under `ping -t` fra PC2 | Session 192.168.20.5 → 192.168.10.10, policy Allow_HTTP_and_ping | Sessioner In vlan.20 → Out vlan.10, policy Allow_HTTP_and_ping | Bestået |
 

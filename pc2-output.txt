@@ -1,0 +1,45 @@
+# Output fra PC2 (OPERATIONS, 192.168.20.5) – test 8 og 9
+
+PS C:\Users\sebr1> curl.exe http://192.168.10.10
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Directory listing for /</title>
+</head>
+<body>
+<h1>Directory listing for /</h1>
+<hr>
+<ul>
+<li><a href=".bash_history">.bash_history</a></li>
+<li><a href=".bash_logout">.bash_logout</a></li>
+<li><a href=".bashrc">.bashrc</a></li>
+<li><a href=".cache/">.cache/</a></li>
+<li><a href=".config/">.config/</a></li>
+<li><a href=".dmrc">.dmrc</a></li>
+<li><a href=".ICEauthority">.ICEauthority</a></li>
+<li><a href=".lesshst">.lesshst</a></li>
+<li><a href=".local/">.local/</a></li>
+<li><a href=".profile">.profile</a></li>
+<li><a href=".sudo_as_admin_successful">.sudo_as_admin_successful</a></li>
+<li><a href=".Xauthority">.Xauthority</a></li>
+<li><a href=".Xdefaults">.Xdefaults</a></li>
+<li><a href=".xscreensaver">.xscreensaver</a></li>
+<li><a href=".xsession-errors">.xsession-errors</a></li>
+<li><a href=".xsession-errors.old">.xsession-errors.old</a></li>
+<li><a href="Desktop/">Desktop/</a></li>
+<li><a href="dhcp.pcapng">dhcp.pcapng@</a></li>
+<li><a href="Documents/">Documents/</a></li>
+<li><a href="Downloads/">Downloads/</a></li>
+<li><a href="Music/">Music/</a></li>
+<li><a href="Pictures/">Pictures/</a></li>
+<li><a href="Public/">Public/</a></li>
+<li><a href="snap/">snap/</a></li>
+<li><a href="Templates/">Templates/</a></li>
+<li><a href="Videos/">Videos/</a></li>
+</ul>
+<hr>
+</body>
+</html>
+PS C:\Users\sebr1> curl.exe --max-time 5 http://192.168.10.10:8080
+curl: (28) Connection timed out after 5004 milliseconds

@@ -45,6 +45,7 @@ Fuld LLD i [LLD.md](LLD.md).
 | `LLD.md` | Interfaces, adresser, zoner og policies |
 | `testplan.md` / `testplan.png` | Testplan, resultater og forklaring af show-kommandoer |
 | `srx-output.txt` | Råt output fra SRX-C1 |
+| `pc2-output.txt` | Råt output fra PC2: curl mod PC1 på port 80 og 8080 (test 8 og 9) |
 
 ## Test (kort)
 
