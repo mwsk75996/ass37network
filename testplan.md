@@ -34,6 +34,8 @@ Forberedelse: Wi-Fi er slået fra på begge PC'er, så trafikken går gennem SRX
 
 **Bemærkning til test 9:** Der er ingen "denied by policy"-linje for port 8080, fordi den del af trace-loggen var roteret væk. Beviset er de 3 SYN-forsøg fra samme kildeport (57500) uden svar i `srx-output-test8-10.txt`, timeout i `pc2-output.txt`, og at `Allow_HTTP_and_ping` ikke steg for 8080. Port 8080 rammer default deny-all, som ikke har en tæller i hit-count.
 
+**Bemærkning til test 10:** I `srx-output-test8-10.txt` steg `deny_all_traffic` fra 46 til 208 hits under curl-testene, selvom curl kom fra PC2 og ikke kan ramme den policy. Den sandsynlige forklaring er, at ping fra PC1 i test 10 stadig kørte (Linux-ping stopper ikke af sig selv). Det passer med de 162 ekstra hits og deny-linjerne med et sekunds mellemrum kl. 09:55, men det er ikke bekræftet. Trace-filteret (f1, source-prefix 192.168.20.5/32) har desuden fanget trafikken fra SALES mod 192.168.20.5, selvom det kun var sat på kilden. Hvorfor er ikke undersøgt.
+
 **Bemærkning til test 7:** Ping virkede først, da Wi-Fi blev slået fra på PC2. Med Wi-Fi tændt havde PC2 to default gateways, og Windows sendte trafikken til 192.168.10.10 ud på skolens Wi-Fi i stedet for til SRX-C1.
 
 ## Output fra SRX-C1

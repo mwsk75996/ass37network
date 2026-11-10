@@ -20,6 +20,8 @@ Nov 10 09:54:27 09:54:27.273203:CID-0:RT:<192.168.20.5/57500->192.168.10.10/8080
 Nov 10 09:54:29 09:54:29.284806:CID-0:RT:<192.168.20.5/57500->192.168.10.10/8080;6> matched filter f1:
 
 ## Trace-linjer for trafik fra SALES mod OPERATIONS (samme trace, 09:55)
+## Bemærk: Der var kun ét filter (f1, source-prefix 192.168.20.5/32). Linjerne her er trafik fra SALES mod
+## OPERATIONS, så filteret har også fanget trafik mod 192.168.20.5. Hvorfor er ikke undersøgt.
 
 Nov 10 09:55:05 09:55:05.276657:CID-0:RT:flow_first_policy_search: policy search from zone SALES-> zone OPERATIONS (0x0,0xbb0007,0x7)
 Nov 10 09:55:05 09:55:05.276657:CID-0:RT:  packet dropped, denied by policy
@@ -37,4 +39,7 @@ Logical system: root-logical-system
  2       OPERATIONS       SALES             Allow_HTTP_and_ping 87
 
 # Allow_HTTP_and_ping gik fra 86 til 87 = curl på port 80 (test 8).
+# deny_all_traffic gik fra 46 til 208 (162 hits), selvom curl kom fra PC2 og ikke kan ramme den policy.
+# Sandsynlig forklaring: ping fra PC1 i test 10 kørte stadig (Linux-ping stopper ikke af sig selv),
+# hvilket passer med deny-linjerne kl. 09:55 med et sekunds mellemrum. Det er ikke bekræftet.
 # Port 8080 matcher ingen policy og rammes af default deny-all, som ikke har en tæller.
