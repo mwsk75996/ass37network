@@ -1,0 +1,210 @@
+
+
+root@SRX-C1> set cli screen-length 0 
+Screen length set to 0
+
+root@SRX-C1> show ethernet-switching interfaces 
+Interface    State  VLAN members        Tag   Tagging  Blocking 
+ge-0/0/3.0   up     OPERATIONS          20    untagged unblocked
+ge-0/0/4.0   down   OPERATIONS          20    untagged unblocked
+ge-0/0/5.0   down   OPERATIONS          20    untagged unblocked
+ge-0/0/6.0   up     SALES               10    untagged unblocked
+ge-0/0/7.0   down   SALES               10    untagged unblocked
+
+root@SRX-C1> show ethernet-switching table 
+Ethernet-switching table: 6 entries, 2 learned, 0 persistent entries
+  VLAN	            MAC address       Type         Age Interfaces
+  OPERATIONS        *                 Flood          - All-members
+  OPERATIONS        28:8a:1c:47:ad:50 Static         - Router
+  OPERATIONS        34:5a:60:29:94:d8 Learn          0 ge-0/0/3.0
+  SALES             *                 Flood          - All-members
+  SALES             28:8a:1c:47:ad:50 Static         - Router
+  SALES             68:f7:28:be:46:85 Learn          0 ge-0/0/6.0
+
+root@SRX-C1> show ethernet-switching mac-learning-log 
+Tue Nov 10 08:34:33 2026  vlan_name mySwitch1Vlan mac 00:00:00:00:00:00 was added 
+Tue Nov 10 08:34:33 2026  vlan_name mySwitch1Vlan mac 28:8a:1c:47:ad:43 was learned on ge-0/0/6.0
+Tue Nov 10 08:34:37 2026  vlan_name mySwitch2Vlan mac 00:00:00:00:00:00 was added 
+Tue Nov 10 08:39:40 2026  vlan_name mySwitch2Vlan mac 00:00:00:00:00:00 was deleted 
+Tue Nov 10 08:39:43 2026  vlan_name mySwitch1Vlan mac 28:8a:1c:47:ad:43 was deleted on ge-0/0/6.0
+Tue Nov 10 08:39:43 2026  vlan_name mySwitch1Vlan mac 00:00:00:00:00:00 was deleted 
+Tue Nov 10 08:54:18 2026  vlan_name SALES mac 28:8a:1c:47:ad:50 was added 
+Tue Nov 10 08:54:18 2026  vlan_name OPERATIONS mac 28:8a:1c:47:ad:50 was added 
+Tue Nov 10 08:54:18 2026  vlan_name OPERATIONS mac 00:00:00:00:00:00 was added 
+Tue Nov 10 08:54:24 2026  vlan_name OPERATIONS mac 68:f7:28:be:46:85 was learned on ge-0/0/5.0
+Tue Nov 10 08:57:11 2026  vlan_name OPERATIONS mac 68:f7:28:be:46:85 was deleted on ge-0/0/5.0
+Tue Nov 10 08:57:11 2026  vlan_name OPERATIONS mac 00:00:00:00:00:00 was deleted 
+Tue Nov 10 08:57:16 2026  vlan_name SALES mac 00:00:00:00:00:00 was added 
+Tue Nov 10 08:57:28 2026  vlan_name OPERATIONS mac 00:00:00:00:00:00 was added 
+Tue Nov 10 08:57:28 2026  vlan_name OPERATIONS mac 34:5a:60:29:94:d8 was learned on ge-0/0/5.0
+Tue Nov 10 08:57:39 2026  vlan_name SALES mac 68:f7:28:be:46:85 was learned on ge-0/0/6.0
+Tue Nov 10 08:57:43 2026  vlan_name OPERATIONS mac 34:5a:60:29:94:d8 was deleted on ge-0/0/5.0
+Tue Nov 10 08:57:43 2026  vlan_name OPERATIONS mac 00:00:00:00:00:00 was deleted 
+Tue Nov 10 08:57:43 2026  vlan_name SALES mac 68:f7:28:be:46:85 was deleted on ge-0/0/6.0
+Tue Nov 10 08:57:43 2026  vlan_name SALES mac 00:00:00:00:00:00 was deleted 
+Tue Nov 10 08:57:49 2026  vlan_name OPERATIONS mac 00:00:00:00:00:00 was added 
+Tue Nov 10 08:57:50 2026  vlan_name SALES mac 00:00:00:00:00:00 was added 
+Tue Nov 10 08:57:50 2026  vlan_name SALES mac 34:5a:60:29:94:d8 was learned on ge-0/0/6.0
+Tue Nov 10 08:58:00 2026  vlan_name SALES mac 34:5a:60:29:94:d8 was deleted on ge-0/0/6.0
+Tue Nov 10 08:58:00 2026  vlan_name SALES mac 00:00:00:00:00:00 was deleted 
+Tue Nov 10 08:58:03 2026  vlan_name OPERATIONS mac 00:00:00:00:00:00 was deleted 
+Tue Nov 10 08:58:08 2026  vlan_name SALES mac 00:00:00:00:00:00 was added 
+Tue Nov 10 08:58:10 2026  vlan_name OPERATIONS mac 00:00:00:00:00:00 was added 
+Tue Nov 10 08:58:10 2026  vlan_name OPERATIONS mac 34:5a:60:29:94:d8 was learned on ge-0/0/5.0
+Tue Nov 10 08:58:11 2026  vlan_name SALES mac 68:f7:28:be:46:85 was learned on ge-0/0/6.0
+Tue Nov 10 09:00:05 2026  vlan_name OPERATIONS mac 34:5a:60:29:94:d8 was deleted on ge-0/0/5.0
+Tue Nov 10 09:00:05 2026  vlan_name OPERATIONS mac 00:00:00:00:00:00 was deleted 
+Tue Nov 10 09:00:09 2026  vlan_name OPERATIONS mac 00:00:00:00:00:00 was added 
+Tue Nov 10 09:00:09 2026  vlan_name OPERATIONS mac 34:5a:60:29:94:d8 was learned on ge-0/0/3.0
+
+root@SRX-C1> show interfaces terse vlan 
+Interface               Admin Link Proto    Local                 Remote
+vlan                    up    up  
+vlan.10                 up    up   inet     192.168.10.1/24 
+vlan.20                 up    up   inet     192.168.20.1/24 
+
+root@SRX-C1> show route terse 
+
+inet.0: 4 destinations, 4 routes (4 active, 0 holddown, 0 hidden)
++ = Active Route, - = Last Active, * = Both
+
+A Destination        P Prf   Metric 1   Metric 2  Next hop         AS path
+* 192.168.10.0/24    D   0                       >vlan.10      
+* 192.168.10.1/32    L   0                        Local
+* 192.168.20.0/24    D   0                       >vlan.20      
+* 192.168.20.1/32    L   0                        Local
+
+root@SRX-C1> show arp no-resolve 
+MAC Address       Address         Interface     Flags
+68:f7:28:be:46:85 192.168.10.10   vlan.10              none
+34:5a:60:29:94:d8 192.168.20.5    vlan.20              none
+Total entries: 2
+
+root@SRX-C1> show security policies 
+Default policy: deny-all
+From zone: OPERATIONS, To zone: SALES
+  Policy: Allow_HTTP_and_ping, State: enabled, Index: 7, Scope Policy: 0, Sequence number: 1
+    Source addresses: any
+    Destination addresses: any
+    Applications: junos-http, junos-icmp-ping
+    Action: permit
+From zone: SALES, To zone: OPERATIONS
+  Policy: deny_all_traffic, State: enabled, Index: 8, Scope Policy: 0, Sequence number: 1
+    Source addresses: any
+    Destination addresses: any
+    Applications: any
+    Action: deny
+
+root@SRX-C1> show security flow session 
+Session ID: 31532, Policy name: Allow_HTTP_and_ping/7, Timeout: 2, Valid
+  In: 192.168.20.5/41 --> 192.168.10.10/1;icmp, If: vlan.20, Pkts: 1, Bytes: 60
+  Out: 192.168.10.10/1 --> 192.168.20.5/41;icmp, If: vlan.10, Pkts: 1, Bytes: 60
+
+Session ID: 31534, Policy name: Allow_HTTP_and_ping/7, Timeout: 2, Valid
+  In: 192.168.20.5/42 --> 192.168.10.10/1;icmp, If: vlan.20, Pkts: 1, Bytes: 60
+  Out: 192.168.10.10/1 --> 192.168.20.5/42;icmp, If: vlan.10, Pkts: 1, Bytes: 60
+
+Session ID: 31540, Policy name: Allow_HTTP_and_ping/7, Timeout: 4, Valid
+  In: 192.168.20.5/43 --> 192.168.10.10/1;icmp, If: vlan.20, Pkts: 1, Bytes: 60
+  Out: 192.168.10.10/1 --> 192.168.20.5/43;icmp, If: vlan.10, Pkts: 1, Bytes: 60
+Total sessions: 3
+
+root@SRX-C1> show security flow session destination-prefix 192.168.10.10 eroot@SRX-C1> ...ion destination-prefix 192.168.10.10 ex                      tensive | no-more 
+Session ID: 31555, Status: Normal
+Flag: 0x80000040
+Policy name: Allow_HTTP_and_ping/7
+Source NAT pool: Null
+Dynamic application: junos:UNKNOWN, 
+Application traffic control rule-set: INVALID, Rule: INVALID
+Maximum timeout: 4, Current timeout: 2
+Session State: Valid
+Start time: 4992, Duration: 3
+   In: 192.168.20.5/45 --> 192.168.10.10/1;icmp, 
+    Interface: vlan.20, 
+    Session token: 0xb, Flag: 0x21
+    Route: 0xd0010, Gateway: 192.168.20.5, Tunnel: 0
+    Port sequence: 0, FIN sequence: 0, 
+    FIN state: 0, 
+    Pkts: 1, Bytes: 60
+   Out: 192.168.10.10/1 --> 192.168.20.5/45;icmp, 
+    Interface: vlan.10, 
+    Session token: 0xa, Flag: 0x20
+    Route: 0x100010, Gateway: 192.168.10.10, Tunnel: 0
+    Port sequence: 0, FIN sequence: 0, 
+    FIN state: 0, 
+    Pkts: 1, Bytes: 60
+
+Session ID: 31559, Status: Normal
+Flag: 0x80000040
+Policy name: Allow_HTTP_and_ping/7
+Source NAT pool: Null
+Dynamic application: junos:UNKNOWN, 
+Application traffic control rule-set: INVALID, Rule: INVALID
+Maximum timeout: 4, Current timeout: 2
+Session State: Valid
+Start time: 4993, Duration: 2
+   In: 192.168.20.5/46 --> 192.168.10.10/1;icmp, 
+    Interface: vlan.20, 
+    Session token: 0xb, Flag: 0x21
+    Route: 0xd0010, Gateway: 192.168.20.5, Tunnel: 0
+    Port sequence: 0, FIN sequence: 0, 
+    FIN state: 0, 
+    Pkts: 1, Bytes: 60
+   Out: 192.168.10.10/1 --> 192.168.20.5/46;icmp, 
+    Interface: vlan.10, 
+    Session token: 0xa, Flag: 0x20
+    Route: 0x100010, Gateway: 192.168.10.10, Tunnel: 0
+    Port sequence: 0, FIN sequence: 0, 
+    FIN state: 0, 
+    Pkts: 1, Bytes: 60
+
+Session ID: 31567, Status: Normal
+Flag: 0x80000040
+Policy name: Allow_HTTP_and_ping/7
+Source NAT pool: Null
+Dynamic application: junos:UNKNOWN, 
+Application traffic control rule-set: INVALID, Rule: INVALID
+Maximum timeout: 4, Current timeout: 4
+Session State: Valid
+Start time: 4994, Duration: 1
+   In: 192.168.20.5/47 --> 192.168.10.10/1;icmp, 
+    Interface: vlan.20, 
+    Session token: 0xb, Flag: 0x21
+    Route: 0xd0010, Gateway: 192.168.20.5, Tunnel: 0
+    Port sequence: 0, FIN sequence: 0, 
+    FIN state: 0, 
+    Pkts: 1, Bytes: 60
+   Out: 192.168.10.10/1 --> 192.168.20.5/47;icmp, 
+    Interface: vlan.10, 
+    Session token: 0xa, Flag: 0x20
+    Route: 0x100010, Gateway: 192.168.10.10, Tunnel: 0
+    Port sequence: 0, FIN sequence: 0, 
+    FIN state: 0, 
+    Pkts: 1, Bytes: 60
+
+Session ID: 31570, Status: Normal
+Flag: 0x80000040
+Policy name: Allow_HTTP_and_ping/7
+Source NAT pool: Null
+Dynamic application: junos:UNKNOWN, 
+Application traffic control rule-set: INVALID, Rule: INVALID
+Maximum timeout: 4, Current timeout: 4
+Session State: Valid
+Start time: 4995, Duration: 0
+   In: 192.168.20.5/48 --> 192.168.10.10/1;icmp, 
+    Interface: vlan.20, 
+    Session token: 0xb, Flag: 0x21
+    Route: 0xd0010, Gateway: 192.168.20.5, Tunnel: 0
+    Port sequence: 0, FIN sequence: 0, 
+    FIN state: 0, 
+    Pkts: 1, Bytes: 60
+   Out: 192.168.10.10/1 --> 192.168.20.5/48;icmp, 
+    Interface: vlan.10, 
+    Session token: 0xa, Flag: 0x20
+    Route: 0x100010, Gateway: 192.168.10.10, Tunnel: 0
+    Port sequence: 0, FIN sequence: 0, 
+    FIN state: 0, 
+    Pkts: 1, Bytes: 60
+Total sessions: 4
+
+root@SRX-C1> 
