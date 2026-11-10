@@ -1,9 +1,6 @@
 {
   "system": {
     "host-name": "SRX-C1",
-    "root-authentication": {
-      "encrypted-password": "$1$4TkbZDtp$6E8C6Bg7K6gnHR31XnJjl0"
-    },
     "services": [
       "ssh"
     ]
