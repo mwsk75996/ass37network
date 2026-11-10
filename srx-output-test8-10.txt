@@ -1,0 +1,40 @@
+# Ekstra output fra SRX-C1, 2026-11-10 (test 8, 9 og 10)
+# Kopieret fra konsol-sessionen. SRX'ens ur er UTC.
+
+## Test 10: PC1 (SALES) ping 192.168.20.5, hit-count lige efter
+
+root@SRX-C1> show security policies hit-count
+Logical system: root-logical-system
+ Index   From zone        To zone           Name           Policy count
+ 1       SALES            OPERATIONS        deny_all_traffic 46
+ 2       OPERATIONS       SALES             Allow_HTTP_and_ping 86
+Number of policy: 2
+
+## Test 9: PC2 curl --max-time 5 http://192.168.10.10:8080
+## Flow trace (traceoptions, packet-filter source-prefix 192.168.20.5/32).
+## Samme kildeport 57500 sendes 3 gange med 1 s og 2 s mellemrum = TCP SYN-retransmission, intet svar.
+
+root@SRX-C1> show log flowtrace | match "192.168.10.10/(80|8080);6" | last 6 | no-more
+Nov 10 09:54:26 09:54:26.266565:CID-0:RT:<192.168.20.5/57500->192.168.10.10/8080;6> matched filter f1:
+Nov 10 09:54:27 09:54:27.273203:CID-0:RT:<192.168.20.5/57500->192.168.10.10/8080;6> matched filter f1:
+Nov 10 09:54:29 09:54:29.284806:CID-0:RT:<192.168.20.5/57500->192.168.10.10/8080;6> matched filter f1:
+
+## Trace-linjer for trafik fra SALES mod OPERATIONS (samme trace, 09:55)
+
+Nov 10 09:55:05 09:55:05.276657:CID-0:RT:flow_first_policy_search: policy search from zone SALES-> zone OPERATIONS (0x0,0xbb0007,0x7)
+Nov 10 09:55:05 09:55:05.276657:CID-0:RT:  packet dropped, denied by policy
+Nov 10 09:55:05 09:55:05.276657:CID-0:RT:  denied by policy deny_all_traffic(8), dropping pkt
+Nov 10 09:55:06 09:55:06.300628:CID-0:RT:flow_first_policy_search: policy search from zone SALES-> zone OPERATIONS (0x0,0xbc0007,0x7)
+Nov 10 09:55:06 09:55:06.300628:CID-0:RT:  packet dropped, denied by policy
+Nov 10 09:55:06 09:55:06.300628:CID-0:RT:  denied by policy deny_all_traffic(8), dropping pkt
+
+## Test 8 + 9: hit-count efter curl-testene
+
+root@SRX-C1> show security policies hit-count
+Logical system: root-logical-system
+ Index   From zone        To zone           Name           Policy count
+ 1       SALES            OPERATIONS        deny_all_traffic 208
+ 2       OPERATIONS       SALES             Allow_HTTP_and_ping 87
+
+# Allow_HTTP_and_ping gik fra 86 til 87 = curl på port 80 (test 8).
+# Port 8080 matcher ingen policy og rammes af default deny-all, som ikke har en tæller.

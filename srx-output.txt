@@ -109,7 +109,7 @@ Session ID: 31540, Policy name: Allow_HTTP_and_ping/7, Timeout: 4, Valid
   Out: 192.168.10.10/1 --> 192.168.20.5/43;icmp, If: vlan.10, Pkts: 1, Bytes: 60
 Total sessions: 3
 
-root@SRX-C1> show security flow session destination-prefix 192.168.10.10 eroot@SRX-C1> ...ion destination-prefix 192.168.10.10 ex                      tensive | no-more 
+root@SRX-C1> show security flow session destination-prefix 192.168.10.10 extensive | no-more
 Session ID: 31555, Status: Normal
 Flag: 0x80000040
 Policy name: Allow_HTTP_and_ping/7

@@ -32,6 +32,8 @@ Forberedelse: Wi-Fi er slået fra på begge PC'er, så trafikken går gennem SRX
 
 11/11 tests bestået. SRX-C1 router mellem SALES og OPERATIONS via de virtuelle interfaces vlan.10 og vlan.20. PC2 på OPERATIONS kan pinge og hente en webside fra PC1 på SALES, men port 8080 bliver afvist, fordi policyen kun tillader HTTP og ping. PC1 på SALES kan ikke nå OPERATIONS, og hit-count viser at det er `deny_all_traffic`, der stopper trafikken.
 
+**Bemærkning til test 9:** Der er ingen "denied by policy"-linje for port 8080, fordi den del af trace-loggen var roteret væk. Beviset er de 3 SYN-forsøg fra samme kildeport (57500) uden svar i `srx-output-test8-10.txt`, timeout i `pc2-output.txt`, og at `Allow_HTTP_and_ping` ikke steg for 8080. Port 8080 rammer default deny-all, som ikke har en tæller i hit-count.
+
 **Bemærkning til test 7:** Ping virkede først, da Wi-Fi blev slået fra på PC2. Med Wi-Fi tændt havde PC2 to default gateways, og Windows sendte trafikken til 192.168.10.10 ud på skolens Wi-Fi i stedet for til SRX-C1.
 
 ## Output fra SRX-C1
@@ -107,4 +109,4 @@ Tue Nov 10 08:58:00 2026  vlan_name SALES mac 34:5a:60:29:94:d8 was deleted on g
 Tue Nov 10 09:00:09 2026  vlan_name OPERATIONS mac 34:5a:60:29:94:d8 was learned on ge-0/0/3.0
 ```
 
-Loggen viser hvornår en MAC-adresse er lært eller slettet, og på hvilken port og hvilket VLAN. Kl. 08:54 er configen committed, og SRX'ens gateway-MAC bliver lagt i begge VLANs. Bagefter ses det at kablerne blev flyttet rundt: PC2 (34:5a:...) var først i ge-0/0/5 og ge-0/0/6, før den endte i ge-0/0/3. Når et kabel tages ud, bliver MAC'en slettet, og når det sættes i en ny port, bliver den lært igen i det VLAN porten hører til. Det fulde output står i `srx-output.txt`.
+Loggen viser hvornår en MAC-adresse er lært eller slettet, og på hvilken port og hvilket VLAN. Kl. 08:54 er configen committed, og SRX'ens gateway-MAC bliver lagt i begge VLANs. Bagefter ses det at kablerne blev flyttet rundt: PC2 (34:5a:...) var først i ge-0/0/5 og ge-0/0/6, før den endte i ge-0/0/3. Når et kabel tages ud, bliver MAC'en slettet, og når det sættes i en ny port, bliver den lært igen i det VLAN porten hører til. Det fulde output står i `srx-output.txt`. Hit-count og flow trace til test 8, 9 og 10 står i `srx-output-test8-10.txt`.
